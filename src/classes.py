@@ -10,9 +10,31 @@ class Product:
         """Задаем значения атрибутам экземпляра."""
         self.name = name
         self.description = description
-        self.price = price
+        self.__price = price
         self.quantity = quantity
 
+    @property
+    def price(self):
+        return self.__price
+
+    @price.setter
+    def price(self, value):
+        if value <= 0:
+            print("Цена не должна быть нулевая или отрицательная")
+        else:
+            self.__price = value
+
+    @classmethod
+    def new_product(cls, product):
+        required_keys = {'name', 'price', 'description', 'quantity'}
+        if not all(key in product for key in required_keys):
+            raise ValueError("В словаре должны быть ключи: name, price, description, quantity")
+        return cls(
+            name=product['name'],
+            price=product['price'],
+            description=product['description'],
+            quantity=product['quantity']
+        )
 
 class Category:
     name: str
@@ -27,6 +49,18 @@ class Category:
         """Задаем значения атрибутам экземпляра."""
         self.name = name
         self.description = description
-        self.products = products
+        self.__products = products
         Category.category_count += 1
-        Category.product_count += len(products)
+        Category.product_count = len(products)
+
+    def add_product(self, product):
+        if isinstance(product, Product):
+            self.__products.append(product)
+
+    @property
+    def products(self):
+        if not self.__products:
+            return "Список товаров пуст."
+        return "\n".join(f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт."
+                         for product in self.__products)
+
