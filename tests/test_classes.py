@@ -66,3 +66,14 @@ def test_price_exception(samsung_product):
         samsung_product.price = new_value
     except ValueError as error:
         assert str(error) == "Ошибка"
+
+
+def test_magic_add_product(category):
+    product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
+    category.add_product = product4
+    assert category.category_count == 5
+    assert category.product_count == 3
+
+
+def test_str_output(category):
+    assert str(category) == "Смартфоны,количество продуктов: 3 шт."
