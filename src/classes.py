@@ -38,7 +38,7 @@ class Product:
 
 
     def __str__(self):
-        return f"{self.name},{self.price} руб. остаток: {self.quantity} шт."
+        return f"{self.name}, {self.price} руб. остаток: {self.quantity} шт."
 
 
     def __add__(self, other):
@@ -75,4 +75,4 @@ class Category:
 
 
     def __str__(self):
-        return f"{self.name},количество продуктов: {self.product_count} шт."
+        return f"{self.name}, количество продуктов: {self.product_count} шт."
