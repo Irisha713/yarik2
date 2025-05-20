@@ -75,5 +75,9 @@ def test_magic_add_product(category):
     assert category.product_count == 3
 
 
-def test_str_output(category):
-    assert str(category) == "Смартфоны,количество продуктов: 3 шт."
+def test_str_product_output(samsung_product):
+    assert str(samsung_product) == "Samsung Galaxy S23 Ultra, 180000.0 руб. остаток: 5 шт."
+
+
+def test_str_category_output(category):
+    assert str(category) == "Смартфоны, количество продуктов: 27 шт."
