@@ -42,7 +42,10 @@ class Product:
 
 
     def __add__(self, other):
-        return self.quantity * self.price + other.quantity * other.price
+        if isinstance(self, type(other)):
+            return self.quantity * self.price + other.quantity * other.price
+        else:
+            raise TypeError
 
 
 class Category:
@@ -65,6 +68,9 @@ class Category:
     def add_product(self, product):
         if isinstance(product, Product):
             self.__products.append(product)
+            Category.product_count += 1
+        else:
+            raise TypeError
 
     @property
     def products(self):
@@ -79,3 +85,20 @@ class Category:
         for product in self.__products:
             quantity += product.quantity
         return f"{self.name}, количество продуктов: {quantity} шт."
+
+
+class Smartphone(Product):
+    def __init__(self, name, description, price, quantity, efficiency, model, memory, color):
+        super().__init__(name, description, price, quantity)
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+
+class LawnGrass(Product):
+    def __init__(self, name, description, price, quantity, country, germination_period, color):
+        super().__init__(name, description, price, quantity)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
