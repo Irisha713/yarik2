@@ -1,5 +1,23 @@
+from abc import ABC, abstractmethod
+
+
+class BaseProduct(ABC):
+    @abstractmethod
+    def __init__(self, name, price, description, quantity):
+        super().__init__()
+
+
+class MixinLog:
+    def __init__(self, *args, **kwargs):
+        print(f"({self.__class__.__name__}, {', '.join(repr(arg) for arg in self.__dict__.values())})")
+
+
+    def __repr__(self):
+        return f"({self.__class__.__name__}, {', '.join(repr(arg) for arg in self.__dict__.values())})"
+
+
 #атрибуты #типы_данных #создание_класса #class
-class Product:
+class Product(BaseProduct, MixinLog):
     quantity = int  # Атрибут класса
     name: str  # Атрибуты (свойства) класса
     description: str
@@ -12,10 +30,13 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__(name, description, price, quantity)
+
 
     @property
     def price(self):
         return self.__price
+
 
     @price.setter
     def price(self, value):
@@ -23,6 +44,7 @@ class Product:
             print("Цена не должна быть нулевая или отрицательная")
         else:
             self.__price = value
+
 
     @classmethod
     def new_product(cls, product):
@@ -65,12 +87,14 @@ class Category:
         Category.category_count += 1
         Category.product_count = len(products)
 
+
     def add_product(self, product):
         if isinstance(product, Product):
             self.__products.append(product)
             Category.product_count += 1
         else:
             raise TypeError
+
 
     @property
     def products(self):
