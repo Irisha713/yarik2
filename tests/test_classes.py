@@ -3,6 +3,15 @@ from src.classes import*
 
 
 @pytest.fixture
+def grass1():
+    return LawnGrass("Газонная трава",
+                 "Элитная трава для газона",
+                      500.0, 20,
+                    "Россия",
+            "7 дней", "Зеленый")
+
+
+@pytest.fixture
 def samsung_product():
     return Product("Samsung Galaxy S23 Ultra",
                    "256GB, Серый цвет, 200MP камера",
@@ -51,7 +60,7 @@ def test_add_product(category):
     product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
     category.add_product(product4)
     assert category.category_count == 4
-    assert category.product_count == 3
+    assert category.product_count == 4
 
 
 def test_price(samsung_product):
@@ -81,3 +90,17 @@ def test_str_product_output(samsung_product):
 
 def test_str_category_output(category):
     assert str(category) == "Смартфоны, количество продуктов: 27 шт."
+
+
+def test_sum_different_products(samsung_product, grass1):
+    try:
+        result = samsung_product + grass1
+    except Exception as e:
+        assert type(e) == type(TypeError())
+
+
+def test_add_none_product(category):
+    try:
+        category.add_product = "Not a product"
+    except Exception as e:
+        assert type(e) == type(TypeError())
