@@ -16,15 +16,6 @@ git clone https://github.com/username/project.git
 pip install -r requirements.txt
 ```
 
-3. Создайте базу данных и выполните миграции:
-```
-python manage.py migrate
-```
-
-4. Запустите локальный сервер:
-```
-python manage.py runserver
-```
 ## Использование:
 ```python
 from src.classes import *
