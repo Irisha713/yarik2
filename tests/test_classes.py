@@ -110,3 +110,12 @@ def test_output(capsys):
     product1 = Product("Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5)
     captured = capsys.readouterr()
     assert captured.out == "(Product, 'Samsung Galaxy S23 Ultra', '256GB, Серый цвет, 200MP камера', 180000.0, 5)\n"
+
+
+def test_middle_price(category):
+    assert category.middle_price() == 140333.33333333334
+
+
+def text_middle_price_exception():
+    category_empty = Category("Пустая категория", "Категория без продуктов", [])
+    assert category_empty.middle_price() == 0
